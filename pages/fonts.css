@@ -1,0 +1,7 @@
+/* font-family: 'Monoton', cursive; */
+/* font-family: 'Antonio', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Antonio&family=Monoton&display=swap');
+
+body {
+    font-family: 'Antonio', sans-serif;
+}
