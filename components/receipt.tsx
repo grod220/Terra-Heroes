@@ -13,6 +13,11 @@ const Card = styled.div`
   color: gray;
 `;
 
+const Highlight = styled.a`
+  color: #d9b70a;
+  text-decoration: none;
+`;
+
 const fetchUSDBalance = async (terraAddress: string) => {
   const res = await fetch(`/api/purchase-status/${terraAddress}`);
   return await res.json();
@@ -28,7 +33,12 @@ export const Receipt = ({ purchase }: { purchase: PurchaseModel }) => {
       <p>Hero Name: {heroes.find((hero) => hero.id === purchase.heroId)?.name}</p>
       <p>Customer Name: {purchase.customerName}</p>
       <p>Requested Location: {purchase.requestedLocation}</p>
-      <p>Terra address: {purchase.terraAddress}</p>
+      <p>
+        Terra address:{' '}
+        <Highlight href={`https://finder.terra.money/tequila-0004/address/${purchase.terraAddress}`} target="_blank">
+          {purchase.terraAddress}
+        </Highlight>
+      </p>
       {isLoading && (
         <>
           <p>Balance: ⏳ Loading... </p>

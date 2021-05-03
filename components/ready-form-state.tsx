@@ -40,16 +40,18 @@ const initTransaction = async (
   const res = await fetch('/api/merchant-address');
   const body: MerchantAddressResponse = await res.json();
 
-  const db = new Database();
-  db.savePurchase({
-    heroId: hero.id,
-    terraAddress: body.merchantTerraAddress,
-    requestedLocation,
-    customerName: name,
-  });
-
-  const tx = await sendTransactionWithExtension(body.merchantTerraAddress, hero.price);
-  setTxhash(tx.result.txhash);
+  try {
+    const tx = await sendTransactionWithExtension(body.merchantTerraAddress, hero.price);
+    setTxhash(tx.result.txhash);
+  } finally {
+    const db = new Database();
+    db.savePurchase({
+      heroId: hero.id,
+      terraAddress: body.merchantTerraAddress,
+      requestedLocation,
+      customerName: name,
+    });
+  }
 };
 
 interface ReadyFormStateProps {

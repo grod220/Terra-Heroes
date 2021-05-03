@@ -21,4 +21,10 @@ export class Database {
     if (!global.window) return [];
     return JSON.parse(localStorage.getItem(TERRA_HEROES_DB)) || [];
   }
+
+  purchaseMadeForAddress(address: string): boolean {
+    const purchases = this.getPurchases();
+    const res = purchases.find((p) => p.terraAddress === address);
+    return Boolean(res);
+  }
 }
