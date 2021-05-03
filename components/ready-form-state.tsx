@@ -4,6 +4,8 @@ import { Hero } from '../data/heroes';
 import { RequestState } from './checkout-form';
 import { MerchantAddressResponse } from '../pages/api/merchant-address';
 import { sendTransactionWithExtension } from '../utils/extension';
+import { v4 as uuidv4 } from 'uuid';
+import { Database, PurchaseState } from '../utils/database';
 
 const HeroName = styled.h2`
   color: #d9b70a;
@@ -33,19 +35,21 @@ const PurchaseButton = styled.input`
 const initTransaction = async (
   hero: Hero,
   name: string,
-  address: string,
+  requestedLocation: string,
   setTxhash: Dispatch<React.SetStateAction<string>>,
 ) => {
   const res = await fetch('/api/merchant-address');
   const body: MerchantAddressResponse = await res.json();
 
-  // SEND TO DB
-  // console.log({
-  //   cartId: uuidv4(),
-  //   heroId: hero.id,
-  //   merchantTerraAddress: body.merchantTerraAddress,
-  //   requestedLocation,
-  // });
+  const db = new Database();
+  db.savePurchase({
+    cartId: uuidv4(),
+    heroId: hero.id,
+    merchantTerraAddress: body.merchantTerraAddress,
+    requestedLocation,
+    customerName: name,
+    state: PurchaseState.STARTED,
+  });
 
   const tx = await sendTransactionWithExtension(body.merchantTerraAddress, hero.price);
   setTxhash(tx.result.txhash);
@@ -61,11 +65,11 @@ export const ReadyFormState = ({ hero, setRequestState, setTxhash }: ReadyFormSt
   const [name, setName] = useState('');
   const [requestedLocation, setRequestedLocation] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, hero: Hero, name: string, address: string) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, hero: Hero, name: string, location: string) => {
     try {
       e.preventDefault();
       setRequestState(RequestState.PENDING);
-      await initTransaction(hero, name, address, setTxhash);
+      await initTransaction(hero, name, location, setTxhash);
       setRequestState(RequestState.SUCCESS);
     } catch (e) {
       setRequestState(RequestState.ERROR);
