@@ -4,8 +4,7 @@ import { Hero } from '../data/heroes';
 import { RequestState } from './checkout-form';
 import { MerchantAddressResponse } from '../pages/api/merchant-address';
 import { sendTransactionWithExtension } from '../utils/extension';
-import { v4 as uuidv4 } from 'uuid';
-import { Database, PurchaseState } from '../utils/database';
+import { Database } from '../utils/database';
 
 const HeroName = styled.h2`
   color: #d9b70a;
@@ -43,12 +42,10 @@ const initTransaction = async (
 
   const db = new Database();
   db.savePurchase({
-    cartId: uuidv4(),
     heroId: hero.id,
-    merchantTerraAddress: body.merchantTerraAddress,
+    terraAddress: body.merchantTerraAddress,
     requestedLocation,
     customerName: name,
-    state: PurchaseState.STARTED,
   });
 
   const tx = await sendTransactionWithExtension(body.merchantTerraAddress, hero.price);

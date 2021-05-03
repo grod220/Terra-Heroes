@@ -1,15 +1,7 @@
-export enum PurchaseState {
-  STARTED,
-  COMPLETED,
-  ERROR,
-}
-
-interface PurchaseModel {
-  cartId: string;
+export interface PurchaseModel {
   heroId: number;
-  merchantTerraAddress: string;
+  terraAddress: string;
   customerName: string;
-  state: PurchaseState;
   requestedLocation: string;
 }
 
@@ -23,5 +15,10 @@ export class Database {
     const currentPurchases: PurchaseModel[] = JSON.parse(localStorage.getItem(TERRA_HEROES_DB));
     currentPurchases.push(purchase);
     localStorage.setItem(TERRA_HEROES_DB, JSON.stringify(currentPurchases));
+  }
+
+  getPurchases(): PurchaseModel[] {
+    if (!global.window) return [];
+    return JSON.parse(localStorage.getItem(TERRA_HEROES_DB)) || [];
   }
 }

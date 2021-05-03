@@ -1,4 +1,4 @@
-import { LCDClient, MnemonicKey, MsgSend } from '@terra-money/terra.js';
+import { Denom, LCDClient, MnemonicKey, MsgSend } from '@terra-money/terra.js';
 import { CUSTOMER_TERRA_ADDRESS, SERVER_WALLET_MNEMONIC } from './constants';
 
 const terraTestnet = new LCDClient({
@@ -26,3 +26,8 @@ wallet
     console.log(`TX hash: ${JSON.stringify(result)}`);
   })
   .catch(console.log);
+
+terraTestnet.auth.accountInfo(CUSTOMER_TERRA_ADDRESS).then((r) => {
+  const res = r.coins.get(Denom.USD).amount;
+  console.log(res);
+});
