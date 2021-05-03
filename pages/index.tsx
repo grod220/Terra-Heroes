@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Terra-X-Men</title>
+        <title>Terra Heroes</title>
         <meta name="description" content="Coding challenge for Terra Labs" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

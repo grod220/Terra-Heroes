@@ -19,7 +19,7 @@ const send = new MsgSend(wallet.key.accAddress, CUSTOMER_TERRA_ADDRESS, { uusd: 
 wallet
   .createAndSignTx({
     msgs: [send],
-    memo: 'test from terra-x-men',
+    memo: 'test from terra-heroes',
   })
   .then((tx) => terraTestnet.tx.broadcast(tx))
   .then((result) => {

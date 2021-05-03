@@ -1,4 +1,4 @@
-interface Hero {
+export interface Hero {
   id: number;
   name: string;
   thumbnail: string;
@@ -12,14 +12,12 @@ export const heroes: Hero[] = [
     thumbnail: 'http://i.annihil.us/u/prod/marvel/i/mg/3/10/5112d84e2166c.jpg',
     price: 89,
   },
-
   {
     id: 1009175,
     name: 'Beast',
     thumbnail: 'http://i.annihil.us/u/prod/marvel/i/mg/2/80/511a79a0451a3.jpg',
     price: 68,
   },
-
   {
     id: 1009220,
     name: 'Captain America',
