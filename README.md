@@ -20,3 +20,10 @@ Uses the Terra Testnet: tequila-0004. Create a wallet, add test funds via the [T
 - React-Query
 - Styled Components
 - LocalStorage
+
+### To run locally
+
+```
+yarn install
+yarn dev
+```
