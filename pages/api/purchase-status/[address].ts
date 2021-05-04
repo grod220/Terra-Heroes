@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Denom, LCDClient, MnemonicKey } from '@terra-money/terra.js';
-import { Numeric } from '@terra-money/terra.js/dist/core/numeric';
+import { Denom, LCDClient } from '@terra-money/terra.js';
 
 const terraTestnet = new LCDClient({
   URL: 'https://tequila-lcd.terra.dev',
