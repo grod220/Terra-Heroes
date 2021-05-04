@@ -37,8 +37,6 @@ export const sendTransactionWithExtension = async (
     extension.on('onConnect', (w: { address: string }) => {
       // Definitely hacky, but a limitation on SDK doesn't allow us to cleanup listeners
       // Reading DB first to ensure transaction has not been made
-      console.log(merchantAddress);
-      console.log(db.purchaseMadeForAddress(merchantAddress));
       if (db.purchaseMadeForAddress(merchantAddress)) return;
 
       const toSend = new MsgSend(w.address, merchantAddress, {
