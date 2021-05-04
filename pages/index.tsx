@@ -5,12 +5,18 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import React from 'react';
 
-const ToTransactions = styled.h3`
-  color: #d9b70a;
-  position: absolute;
+const TestNetAddress = styled.h3`
+  left: 40px;
   top: 10px;
-  right: 40px;
+  position: absolute;
+  color: #494949;
+`;
 
+const ToTransactions = styled.h3`
+  right: 40px;
+  top: 10px;
+  position: absolute;
+  color: #d9b70a;
   &:hover {
     cursor: pointer;
   }
@@ -26,6 +32,7 @@ export default function Home() {
       </Head>
       <Header />
       <Heroes />
+      <TestNetAddress>Terra Testnet: tequila-0004</TestNetAddress>
       <Link href="/purchases">
         <ToTransactions>Check Transactions ➡</ToTransactions>
       </Link>
